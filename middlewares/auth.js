@@ -3,7 +3,7 @@ const UnauthorizedError = require('../errors/UnauthorizedError');
 const { secretTokenKey } = require('../utils/config');
 const { UNAUTH_MSG } = require('../utils/constants');
 
-const { NODE_ENV, JWT_SECRET = secretTokenKey } = process.env;
+const { JWT_SECRET, NODE_ENV } = process.env;
 
 module.exports = (req, res, next) => {
   const token = req.cookies.jwt;
@@ -17,7 +17,7 @@ module.exports = (req, res, next) => {
   try {
     payload = jwt.verify(
       token,
-      NODE_ENV === 'production' ? JWT_SECRET : secretTokenKey,
+      NODE_ENV !== 'production' ? secretTokenKey : JWT_SECRET,
     );
   } catch (err) {
     next(err);

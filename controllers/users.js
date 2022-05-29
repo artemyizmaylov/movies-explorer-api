@@ -1,10 +1,10 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const userModel = require('../models/user');
-const { secretTokenKey } = require('../utils/config');
+const { secretTokenKey, jwtSettings, cookieSettings } = require('../utils/config');
 const { SIGNIN_MSG, SIGNOUT_MSG } = require('../utils/constants');
 
-const { NODE_ENV, JWT_SECRET = secretTokenKey } = process.env;
+const { JWT_SECRET, NODE_ENV } = process.env;
 
 module.exports.getCurrentUser = (req, res, next) => {
   userModel.findById(req.user.id)
@@ -32,9 +32,9 @@ module.exports.signup = (req, res, next) => {
           const newUser = user.toObject();
           delete newUser.password;
           res.send(newUser);
-        });
-    })
-    .catch(next);
+        })
+        .catch(next);
+    });
 };
 
 module.exports.signin = (req, res, next) => {
@@ -43,14 +43,12 @@ module.exports.signin = (req, res, next) => {
     .then((user) => {
       const token = jwt.sign(
         { id: user._id },
-        NODE_ENV !== 'production' ? JWT_SECRET : secretTokenKey,
-        { expiresIn: '7d' },
+        NODE_ENV !== 'production' ? secretTokenKey : JWT_SECRET,
+        jwtSettings,
       );
 
       res
-        .cookie('jwt', token, {
-          httpOnly: true,
-        })
+        .cookie('jwt', token, cookieSettings)
         .send({ message: SIGNIN_MSG });
     })
     .catch(next);
