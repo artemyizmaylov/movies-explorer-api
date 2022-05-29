@@ -11,7 +11,7 @@ const movie = new Schema({
   trailerLink: { type: String, required: true, validate: (v) => isURL(v) },
   thumbnail: { type: String, required: true, validate: (v) => isURL(v) },
   owner: { type: Types.ObjectId, required: true },
-  movieId: { type: Types.ObjectId, required: true },
+  movieId: { type: Number, required: true },
   nameRU: { type: String, required: true },
   nameEN: { type: String, required: true },
 }, { versionKey: false });
