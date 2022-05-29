@@ -1,8 +1,8 @@
 const rateLimit = require('express-rate-limit');
 
-const limiter = (rateLimit({ // защита от DDoS
-  windowMs: 15 * 60 * 1000, // 15 минут
-  max: 100, // количество запросов
+const limiter = (rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 100,
 }));
 
 module.exports = limiter;

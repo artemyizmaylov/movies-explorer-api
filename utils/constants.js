@@ -8,7 +8,8 @@ const DEFAUTL_CODE = 500;
 const SIGNIN_MSG = 'Успешный вход';
 const SIGNOUT_MSG = 'Успешный выход';
 const UNAUTH_MSG = 'Необходима авторизация';
-const NOT_FOUND_MSG = 'Данные не найдены';
+const DATA_NOT_FOUND_MSG = 'Данные не найдены';
+const PATH_NOT_FOUND_MSG = 'Некорректный путь запроса';
 const DELETE_FORBIDDEN_MSG = 'Нельзя удалять чужие фильмы';
 const EMAIL_EXIST_MSG = 'Email уже зарегистрирован';
 const INCORRECT_ID_MSG = 'Неправильный ID';
@@ -25,7 +26,8 @@ module.exports = {
   SIGNIN_MSG,
   SIGNOUT_MSG,
   UNAUTH_MSG,
-  NOT_FOUND_MSG,
+  DATA_NOT_FOUND_MSG,
+  PATH_NOT_FOUND_MSG,
   DELETE_FORBIDDEN_MSG,
   EMAIL_EXIST_MSG,
   INCORRECT_ID_MSG,
