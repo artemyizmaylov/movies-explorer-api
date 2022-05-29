@@ -12,10 +12,15 @@ const cookieSettings = {
 };
 
 const corsSettings = {
-  origin: /http(s):\/\/favorite-movies\.nomoredomains\.xyz$/,
+  origin: [
+    /http(s):\/\/favorite-movies\.nomoredomains\.xyz$/,
+    'http://localhost:3001',
+  ],
   methods: ['GET', 'POST', 'PATCH', 'DELETE'],
   credentials: true,
 };
+
+console.log(corsSettings);
 
 module.exports = {
   secretTokenKey,
