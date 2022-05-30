@@ -20,8 +20,6 @@ const corsSettings = {
   credentials: true,
 };
 
-console.log(corsSettings);
-
 module.exports = {
   secretTokenKey,
   mongodbServer,
