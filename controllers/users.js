@@ -26,15 +26,13 @@ module.exports.signup = (req, res, next) => {
   const { name, email, password } = req.body;
 
   bcrypt.hash(password, 10)
-    .then((hash) => {
-      userModel.create({ name, email, password: hash })
-        .then((user) => {
-          const newUser = user.toObject();
-          delete newUser.password;
-          res.send(newUser);
-        })
-        .catch(next);
-    });
+    .then((hash) => userModel.create({ name, email, password: hash })
+      .then((user) => {
+        const newUser = user.toObject();
+        delete newUser.password;
+        res.send(newUser);
+      }))
+    .catch(next);
 };
 
 module.exports.signin = (req, res, next) => {

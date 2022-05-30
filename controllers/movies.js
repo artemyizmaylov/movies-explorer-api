@@ -29,8 +29,8 @@ module.exports.deleteMovie = (req, res, next) => {
         throw new ForbiddenError(DELETE_FORBIDDEN_MSG);
       }
 
-      return movieModel.findByIdAndDelete(movie._id)
-        .then((deletedMovie) => res.send(deletedMovie));
+      movieModel.findByIdAndDelete(movie._id)
+        .then((deleted) => res.send(deleted));
     })
     .catch(next);
 };
