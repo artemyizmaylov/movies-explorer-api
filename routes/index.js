@@ -6,7 +6,7 @@ const { signup, signin, signout } = require('../controllers/users');
 const { signupPattern, signinPattern } = require('../middlewares/validation');
 const { PATH_NOT_FOUND_MSG, GREETINGS_MSG } = require('../utils/constants');
 
-router.use('/', (req, res) => res.send({ message: GREETINGS_MSG }));
+router.get('/', (req, res) => res.send({ message: GREETINGS_MSG }));
 
 router.post('/signup', signupPattern, signup);
 router.post('/signin', signinPattern, signin);
