@@ -5,6 +5,7 @@ const NOT_FOUND_CODE = 404;
 const CONFLICT_CODE = 409;
 const DEFAUTL_CODE = 500;
 
+const GREETINGS_MSG = 'Добро пожаловать в REST API приложения Favorite Movies!';
 const SIGNIN_MSG = 'Успешный вход';
 const SIGNOUT_MSG = 'Успешный выход';
 const UNAUTH_MSG = 'Необходима авторизация';
@@ -33,4 +34,5 @@ module.exports = {
   INCORRECT_ID_MSG,
   INCORRECT_DATA_MSG,
   DEFAUTL_MSG,
+  GREETINGS_MSG,
 };
