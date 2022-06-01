@@ -5,6 +5,7 @@ const port = 3000;
 const jwtSettings = {
   expiresIn: '7d',
 };
+
 const cookieSettings = {
   httpOnly: true,
   sameSite: true,
