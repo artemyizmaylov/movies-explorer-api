@@ -20,14 +20,14 @@ const app = express();
 mongoose.connect(MONGOD_SERVER);
 app.listen(PORT);
 
-app.use(helmet());
+app.use(expressLogger);
 app.use(limiter);
 
+app.use(helmet());
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(cors(corsSettings));
 
-app.use(expressLogger);
 app.use(routes);
 
 app.use(errorLogger);

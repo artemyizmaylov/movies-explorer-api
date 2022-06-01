@@ -1,20 +1,21 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const ConflictError = require('../errors/ConflictError');
 const userModel = require('../models/user');
 const { secretTokenKey, jwtSettings, cookieSettings } = require('../utils/config');
-const { SIGNIN_MSG, SIGNOUT_MSG } = require('../utils/constants');
+const { SIGNIN_MSG, SIGNOUT_MSG, EMAIL_EXIST_MSG } = require('../utils/constants');
 
 const { JWT_SECRET, NODE_ENV } = process.env;
 
 module.exports.getCurrentUser = (req, res, next) => {
-  userModel.findById(req.user.id)
+  userModel.findById(req.user._id)
     .then((user) => res.send(user))
     .catch(next);
 };
 
 module.exports.updateCurrentUser = (req, res, next) => {
   userModel.findByIdAndUpdate(
-    req.user.id,
+    req.user._id,
     req.body,
     { new: true, runValidators: true },
   )
@@ -32,7 +33,13 @@ module.exports.signup = (req, res, next) => {
         delete newUser.password;
         res.send(newUser);
       }))
-    .catch(next);
+    .catch((err) => {
+      if (err.name === 'MongoServerError') {
+        next(new ConflictError(EMAIL_EXIST_MSG));
+      } else {
+        next(err);
+      }
+    });
 };
 
 module.exports.signin = (req, res, next) => {
@@ -40,7 +47,7 @@ module.exports.signin = (req, res, next) => {
   userModel.findUserByCredentials({ email, password })
     .then((user) => {
       const token = jwt.sign(
-        { id: user._id },
+        { _id: user._id },
         NODE_ENV !== 'production' ? secretTokenKey : JWT_SECRET,
         jwtSettings,
       );
