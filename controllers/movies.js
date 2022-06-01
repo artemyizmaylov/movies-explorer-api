@@ -5,13 +5,13 @@ const NotFoundError = require('../errors/NotFoundError');
 const { DATA_NOT_FOUND_MSG, DELETE_FORBIDDEN_MSG } = require('../utils/constants');
 
 module.exports.getMovies = (req, res, next) => {
-  movieModel.find({ owner: req.user._id })
+  movieModel.find({})
     .then((movies) => res.send(movies))
     .catch(next);
 };
 
 module.exports.createMovie = (req, res, next) => {
-  req.body.owner = req.user._id;
+  req.body.owner = req.user.id;
 
   movieModel.create(req.body)
     .then((movie) => res.send(movie))
@@ -25,11 +25,11 @@ module.exports.deleteMovie = (req, res, next) => {
         throw new NotFoundError(DATA_NOT_FOUND_MSG);
       }
 
-      if (movie.owner.toString() !== req.user._id) {
+      if (movie.owner.toString() !== req.user.id) {
         throw new ForbiddenError(DELETE_FORBIDDEN_MSG);
       }
 
-      return movieModel.findByIdAndDelete(movie._id)
+      movieModel.findByIdAndDelete(movie._id)
         .then((deleted) => res.send(deleted));
     })
     .catch(next);

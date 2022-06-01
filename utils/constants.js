@@ -13,6 +13,8 @@ const DATA_NOT_FOUND_MSG = 'Данные не найдены';
 const PATH_NOT_FOUND_MSG = 'Некорректный путь запроса';
 const DELETE_FORBIDDEN_MSG = 'Нельзя удалять чужие фильмы';
 const EMAIL_EXIST_MSG = 'Email уже зарегистрирован';
+const INCORRECT_ID_MSG = 'Неправильный ID';
+const INCORRECT_DATA_MSG = 'Переданы некорректные или неполные данные';
 const DEFAUTL_MSG = 'На сервере произошла ошибка';
 
 module.exports = {
@@ -29,6 +31,8 @@ module.exports = {
   PATH_NOT_FOUND_MSG,
   DELETE_FORBIDDEN_MSG,
   EMAIL_EXIST_MSG,
+  INCORRECT_ID_MSG,
+  INCORRECT_DATA_MSG,
   DEFAUTL_MSG,
   GREETINGS_MSG,
 };

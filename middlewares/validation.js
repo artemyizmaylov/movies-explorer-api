@@ -1,13 +1,4 @@
 const { Joi, celebrate } = require('celebrate');
-const { isURL } = require('validator');
-
-const urlValidator = (value) => {
-  if (!isURL(value)) {
-    throw new Error('it\'s not a correct link');
-  }
-
-  return value;
-};
 
 const signupPattern = celebrate({
   body: Joi.object().keys({
@@ -26,8 +17,9 @@ const signinPattern = celebrate({
 
 const patchUserPattern = celebrate({
   body: Joi.object().keys({
-    name: Joi.string().min(2).max(30).required(),
-    email: Joi.string().email().required(),
+    name: Joi.string().min(2).max(30),
+    email: Joi.string().email(),
+    password: Joi.string(),
   }),
 });
 
@@ -38,9 +30,9 @@ const moviePattern = celebrate({
     duration: Joi.number().required(),
     year: Joi.string().required(),
     description: Joi.string().required(),
-    image: Joi.string().custom(urlValidator).required(),
-    trailerLink: Joi.string().custom(urlValidator).required(),
-    thumbnail: Joi.string().custom(urlValidator).required(),
+    image: Joi.string().uri().required(),
+    trailerLink: Joi.string().uri().required(),
+    thumbnail: Joi.string().uri().required(),
     movieId: Joi.number().required(),
     nameRU: Joi.string().required(),
     nameEN: Joi.string().required(),
@@ -49,7 +41,7 @@ const moviePattern = celebrate({
 
 const idPattern = celebrate({
   params: Joi.object().keys({
-    _id: Joi.string().hex().length(24),
+    _id: Joi.string().hex(),
   }),
 });
 

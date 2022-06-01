@@ -20,8 +20,7 @@ module.exports = (req, res, next) => {
       NODE_ENV !== 'production' ? secretTokenKey : JWT_SECRET,
     );
   } catch (err) {
-    res.clearCookie('jwt');
-    next(new UnauthorizedError(UNAUTH_MSG));
+    next(err);
   }
 
   req.user = payload;
