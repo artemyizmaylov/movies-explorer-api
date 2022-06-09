@@ -1,2 +1,4 @@
-# movies-explorer-api
-Backend for Y.Praktikum diploma
+Бэкенд для дипломного проекта Movies Explorer.
+---
+
+* Найти API можно [здесь](https://api.favorite-movies.nomoredomains.xyz)
