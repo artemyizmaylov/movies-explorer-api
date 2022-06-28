@@ -20,7 +20,13 @@ module.exports.updateCurrentUser = (req, res, next) => {
     { new: true, runValidators: true },
   )
     .then((user) => res.send(user))
-    .catch(next);
+    .catch((err) => {
+      if (err.name === 'MongoServerError') {
+        next(new ConflictError(EMAIL_EXIST_MSG));
+      } else {
+        next(err);
+      }
+    });
 };
 
 module.exports.signup = (req, res, next) => {
